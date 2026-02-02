@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forever 💗</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --accent:#ff6f91;
+  --soft:#ffc1cc;
+  --bg1:#2a0e16;
+  --bg2:#3b0f1e;
+  --text:#fff;
+}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui;
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:24px;
+  text-align:center;
+  overflow-x:hidden;
+}
+
+.stage{max-width:760px;width:100%}
+h2{font-family:'Playfair Display',serif;color:var(--accent)}
+
+.btn{
+  padding:12px 26px;
+  border-radius:18px;
+  border:none;
+  background:linear-gradient(90deg,var(--accent),var(--soft));
+  color:#2a0e16;
+  font-weight:700;
+  cursor:pointer;
+  margin-top:18px;
+}
+
+input{
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  width:260px;
+}
+
+/* sections */
+#quiz,#letter,#promise{display:none}
+
+/* slideshow */
+.slideshow{
+  width:100%;
+  max-width:420px;
+  height:280px;
+  margin:20px auto;
+  border-radius:18px;
+  overflow:hidden;
+  position:relative;
+}
+.slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:1s;
+}
+.slide.active{opacity:1}
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* letter */
+.letterBox{
+  background:rgba(255,255,255,.08);
+  padding:26px;
+  border-radius:20px;
+  margin-top:20px;
+}
+#handwritten{
+  font-family:'Pacifico',cursive;
+  font-size:21px;
+  line-height:1.9;
+  white-space:pre-wrap;
+}
+
+/* heart confetti */
+.heart{
+  position:fixed;
+  font-size:20px;
+  animation:floatUp 3s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes floatUp{
+  from{transform:translateY(0) scale(1);opacity:1}
+  to{transform:translateY(-120vh) scale(1.4);opacity:0}
+}
+</style>
+</head>
+
+<body>
+<div class="stage">
+
+<!-- PASSWORD -->
+<div id="gate">
+  <h2>Besties Only 🔐</h2>
+  <p>Hint: the first cringe ugly nickname you gave me 😭</p>
+  <input id="pass">
+  <br>
+  <button class="btn" onclick="unlock()">Enter</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz">
+  <h2>Answer honestly 💗</h2>
+
+  <!-- HER SLIDESHOW -->
+  <div class="slideshow" id="herShow">
+    <div class="slide active"><img src="her1.jpeg"></div>
+    <div class="slide"><img src="her2.jpeg"></div>
+    <div class="slide"><img src="her3.jpeg"></div>
+    <div class="slide"><img src="her4.jpeg"></div>
+  </div>
+
+  <p><b>1️⃣ What do I love doing the most?</b></p>
+  <button class="btn" onclick="correct()">Talking to you</button>
+  <button class="btn">Watching Virat Kohli</button>
+  <button class="btn">Watching SRK movies</button>
+
+  <p><b>2️⃣ When did I fall in love with you secretly?</b></p>
+  <input id="date" placeholder="25th December 2024">
+  <button class="btn" onclick="checkDate()">Submit</button>
+
+  <p><b>3️⃣ What do I love most about you?</b></p>
+  <button class="btn" onclick="correct()">Smile</button>
+  <button class="btn">Eyes</button>
+  <button class="btn">Hair</button>
+  <button class="btn">Lips</button>
+
+  <p><b>4️⃣ Who annoys me the most but I still love?</b></p>
+  <button class="btn" onclick="correct()">You 😌</button>
+  <button class="btn">Everyone else</button>
+
+  <p><b>5️⃣ What am I scared of losing?</b></p>
+  <button class="btn" onclick="correct()">You 💗</button>
+  <button class="btn">Sleep</button>
+
+  <p style="margin-top:20px">Score: <span id="score">0</span>/5</p>
+</div>
+
+<!-- LETTER -->
+<div id="letter">
+  <h2>For You 💗</h2>
+
+  <!-- US SLIDESHOW (5 IMAGES) -->
+  <div class="slideshow" id="usShow">
+    <div class="slide active"><img src="us1.jpeg"></div>
+    <div class="slide"><img src="us2.jpeg"></div>
+    <div class="slide"><img src="us3.jpeg"></div>
+    <div class="slide"><img src="us4.jpeg"></div>
+    <div class="slide"><img src="us5.jpeg"></div>
+  </div>
+
+  <div class="letterBox">
+    <div id="handwritten"></div>
+  </div>
+
+  <button class="btn" onclick="goPromise()">One last thing 💍</button>
+</div>
+
+<!-- PROMISE -->
+<div id="promise">
+  <h2>Forever Promise 💍</h2>
+
+  <div class="letterBox">
+    <p style="font-family:'Pacifico',cursive;font-size:22px;line-height:1.8">
+      I promise to choose you every single day,  
+      protect your heart, support your dreams,  
+      and stand by you no matter what.  
+      This is forever 💗
+    </p>
+  </div>
+
+  <h2 style="margin-top:28px">Will you be mine forever? 🥹💖</h2>
+  <button class="btn" onclick="foreverYes()">Yes 💍</button>
+
+  <div id="finalText" style="
+    margin-top:24px;
+    font-family:'Playfair Display',serif;
+    font-size:30px;
+    color:var(--accent);
+    display:none;
+  ">
+    Forever it is 💗
+  </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="bgSong" src="background_song.mp3" loop></audio>
+<audio id="finalSong" src="final_song.mp3" loop></audio>
+<audio id="promiseSong" src="promise_song.mp3" loop></audio>
+
+</div>
+
+<script>
+let score=0;
+
+/* ===== SLIDESHOW ENGINE (NO SKIPPING) ===== */
+const slideshowIntervals = {};
+
+function startSlideshow(id, interval){
+  const slides = document.querySelectorAll("#"+id+" .slide");
+  if(!slides.length) return;
+
+  if(slideshowIntervals[id]){
+    clearInterval(slideshowIntervals[id]);
+  }
+
+  let index = 0;
+  slides.forEach(s=>s.classList.remove("active"));
+  slides[0].classList.add("active");
+
+  slideshowIntervals[id] = setInterval(()=>{
+    slides[index].classList.remove("active");
+    index = (index + 1) % slides.length;
+    slides[index].classList.add("active");
+  }, interval);
+}
+
+/* unlock */
+function unlock(){
+  if(pass.value.toLowerCase()==="amazonforest"){
+    gate.style.display="none";
+    quiz.style.display="block";
+    bgSong.volume=0.5;
+    bgSong.play().catch(()=>{});
+    startSlideshow("herShow",2500);
+  } else alert("Wrong 😭");
+}
+
+/* quiz */
+function correct(){
+  score++;
+  document.getElementById("score").textContent=score;
+  if(score===5){
+    quiz.style.display="none";
+    letter.style.display="block";
+    bgSong.pause();
+    finalSong.play().catch(()=>{});
+    startSlideshow("usShow",3000);
+    typeLetter();
+  }
+}
+function checkDate(){
+  if(date.value.toLowerCase()==="25th december 2024") correct();
+}
+
+/* handwriting */
+const letterText=`Happy Birthday my favourite person 💗
+Every moment with you feels like home.
+You are my comfort, my peace, my happiness.
+Thank you for choosing me and staying.
+I’m so grateful for you — always.`;
+
+function typeLetter(){
+  const el=document.getElementById("handwritten");
+  const words=letterText.split(" ");
+  let i=0;
+  const interval=setInterval(()=>{
+    el.textContent+=words[i]+" ";
+    i++;
+    if(i>=words.length) clearInterval(interval);
+  },260);
+}
+
+/* promise page */
+function goPromise(){
+  letter.style.display="none";
+  promise.style.display="block";
+  finalSong.pause();
+  promiseSong.play().catch(()=>{});
+}
+
+/* confetti hearts */
+function foreverYes(){
+  document.getElementById("finalText").style.display="block";
+  for(let i=0;i<40;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.textContent="💗";
+    h.style.left=Math.random()*100+"vw";
+    h.style.top="100vh";
+    h.style.animationDuration=2+Math.random()*2+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),4000);
+  }
+}
+</script>
+
+</body>
+</html>
